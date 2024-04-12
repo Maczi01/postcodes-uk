@@ -1,6 +1,9 @@
 import React from 'react';
 
-export const Table = ({ data }) => {
+export const PostcodeDetails = ({ data }) => {
+
+    if (!data) return null;
+
     const allKeys = Object.keys(data);
     const showKeys = ['postcode', 'country', 'longitude', 'latitude', 'nhs_ha', 'primary_care_trust', 'admin_district', 'admin_ward' ];
     const keys = allKeys.filter(key => showKeys.includes(key));
