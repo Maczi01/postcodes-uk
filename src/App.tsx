@@ -1,13 +1,14 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { MapRef } from 'react-map-gl';
+
 import { getPostcodeDetails, getSuggestedPostcodes } from './api/postcodes.ts';
+import { MapComponent } from './components/Map';
+import { PostcodeDetails } from './components/PostcodeDetails';
 import { SearchField } from './components/SearchField.tsx';
 import { Title } from './components/Title';
-import { PostcodeDetails } from './components/PostcodeDetails.tsx';
 import { useDebounce } from './hooks/useDebounce';
-import { MapRef } from 'react-map-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import { MapComponent } from './components/Map.tsx';
 import { queryKeys } from './utils/queryKeys.ts';
 
 // done x in input
@@ -16,7 +17,7 @@ import { queryKeys } from './utils/queryKeys.ts';
 // TODO error handling
 // TODO loading state
 // TODO no results found
-// TODO eslint
+// done eslint
 // TODO zod
 // done types
 // TODO separate svg X

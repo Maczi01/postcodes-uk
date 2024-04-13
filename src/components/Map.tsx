@@ -1,7 +1,8 @@
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { useEffect, useRef } from 'react';
 import Map, { MapRef } from 'react-map-gl';
-import { config } from '../utils/config.ts';
-import 'mapbox-gl/dist/mapbox-gl.css';
+
+import { config, mapboxAccessToken } from '../utils/config.ts';
 
 type MapComponentProps = {
     latitude?: number;
@@ -30,14 +31,17 @@ export const MapComponent = ({ latitude, longitude, coordinatesAvailable }: MapC
                 initialViewState={config.map}
                 ref={mapRef}
                 style={{ width: '100%', height: '100vh' }}
-                mapboxAccessToken="pk.eyJ1IjoiYWxlcGhyaSIsImEiOiJjamdwbHpycjIyZm45Mndud3AzamRibHpqIn0.ejAHwSGT6dcGxiDOrPCFLg"
+                mapboxAccessToken={mapboxAccessToken}
                 mapStyle="mapbox://styles/mapbox/streets-v12"
                 dragRotate={false}
                 touchZoomRotate={false}
                 attributionControl={false}
             >
                 {!coordinatesAvailable && (
-                    <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-65 flex items-center justify-center text-xl">
+                    <div
+                        className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-65 
+                    flex items-center justify-center text-xl"
+                    >
                         <span>Coordinates not available</span>
                     </div>
                 )}
@@ -45,4 +49,3 @@ export const MapComponent = ({ latitude, longitude, coordinatesAvailable }: MapC
         </div>
     );
 };
-
