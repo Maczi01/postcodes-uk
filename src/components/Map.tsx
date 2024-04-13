@@ -36,7 +36,7 @@ export const MapComponent = ({ latitude, longitude, postcode }: MapComponentProp
                 touchZoomRotate={false}
                 attributionControl={false}
             >
-                {(!longitude && postcode) && (
+                {!longitude && postcode && (
                     <div
                         className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-65 
                     flex items-center justify-center text-xl"
