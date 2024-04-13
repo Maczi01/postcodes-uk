@@ -11,13 +11,13 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.24.1",
-    "axios": "^1.6.8",
-    "react": "^18.2.0",
     "@types/mapbox-gl": "2.7.19",
+    "axios": "^1.6.8",
     "mapbox-gl": "3.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-map-gl": "7.1.6",
-
-    "react-dom": "^18.2.0"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
@@ -27,9 +27,17 @@
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-import": "2.29.0",
+    "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-plugin-ordered-imports": "0.6.0",
+    "eslint-plugin-playwright": "0.15.3",
+    "eslint-plugin-prettier": "5.0.1",
+    "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "postcss": "^8.4.35",
+    "prettier": "3.1.0",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"

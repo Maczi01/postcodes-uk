@@ -1,16 +1,15 @@
 import './index.css';
-import {useEffect, useRef, useState} from 'react';
-import {useQuery} from '@tanstack/react-query';
-import {getPostcodeDetails, getPostcodes} from "./api/postcodes.ts";
-import {TextField} from './components/TextField';
-import {Title} from './components/Title';
-import {PostcodeDetails} from "./components/PostcodeDetails.tsx";
-import {useDebounce} from './hooks/useDebounce';
-import {MapRef} from 'react-map-gl';
-import "mapbox-gl/dist/mapbox-gl.css";
-import {MapComponent} from "./components/Map.tsx";
-import {queryKeys} from "./utils/queryKeys.ts";
-
+import { useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getPostcodeDetails, getPostcodes } from './api/postcodes.ts';
+import { TextField } from './components/TextField';
+import { Title } from './components/Title';
+import { PostcodeDetails } from './components/PostcodeDetails.tsx';
+import { useDebounce } from './hooks/useDebounce';
+import { MapRef } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import { MapComponent } from './components/Map.tsx';
+import { queryKeys } from './utils/queryKeys.ts';
 
 // TODO x in input
 // TODO no suggestions if empty
@@ -19,6 +18,8 @@ import {queryKeys} from "./utils/queryKeys.ts";
 // TODO loading state
 // TODO no results found
 // TODO eslint
+// TODO zod
+// TODO types
 
 function App() {
     const [input, setInput] = useState('');
@@ -28,13 +29,13 @@ function App() {
     const mapRef = useRef<MapRef>(null);
     const [coordinatesAvailable, setCoordinatesAvailable] = useState(true);
 
-    const {data} = useQuery({
+    const { data } = useQuery({
         queryKey: [queryKeys.postcodes.autocomplete, debouncedInput],
         queryFn: () => getPostcodes(debouncedInput),
-        enabled: true
+        enabled: true,
     });
 
-    const {data: postcodeDetails} = useQuery({
+    const { data: postcodeDetails } = useQuery({
         queryKey: [activePostcode],
         queryFn: () => getPostcodeDetails(activePostcode),
         enabled: !!activePostcode,
@@ -48,14 +49,14 @@ function App() {
 
     useEffect(() => {
         if (postcodeDetails && mapRef.current) {
-            const {latitude, longitude} = postcodeDetails.result;
+            const { latitude, longitude } = postcodeDetails.result;
             if (latitude != null && longitude != null) {
                 mapRef.current.flyTo({
                     center: [longitude, latitude],
                     zoom: 12,
                     speed: 0.8,
                     curve: 1,
-                    essential: true
+                    essential: true,
                 });
                 setCoordinatesAvailable(true);
             } else {
@@ -64,12 +65,12 @@ function App() {
         }
     }, [postcodeDetails]);
 
-    const onChangeInputText = (e) => {
+    const onChangeInputText = e => {
         setInput(e.target.value);
         setDropdownVisible(true);
     };
 
-    const handleSuggestionClick = (value) => {
+    const handleSuggestionClick = value => {
         setInput(value);
         setActivePostcode(value);
         setDropdownVisible(false);
@@ -78,15 +79,15 @@ function App() {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 h-full w-[100vw] mx-auto">
             <div className="h-full">
-                <Title/>
-                    <TextField
-                        placeholder="Enter postcode..."
-                        value={input}
-                        onChange={onChangeInputText}
-                        suggestions={dropdownVisible ? data?.result : []}
-                        onSuggestionClick={handleSuggestionClick}
-                    />
-                <PostcodeDetails data={postcodeDetails?.result}/>
+                <Title />
+                <TextField
+                    placeholder="Enter postcode..."
+                    value={input}
+                    onChange={onChangeInputText}
+                    suggestions={dropdownVisible ? data?.result : []}
+                    onSuggestionClick={handleSuggestionClick}
+                />
+                <PostcodeDetails data={postcodeDetails?.result} />
             </div>
 
             <MapComponent
