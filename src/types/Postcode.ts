@@ -1,9 +1,9 @@
-type ApiResponse = {
+export type PostcodesResponse = {
     status: number;
     result: PostcodeResult;
 };
 
-type PostcodeResult = {
+export type PostcodeResult = {
     postcode: string;
     quality: number;
     eastings: number;

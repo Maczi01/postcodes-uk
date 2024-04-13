@@ -1,8 +1,7 @@
-import './index.css';
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getPostcodeDetails, getPostcodes } from './api/postcodes.ts';
-import { TextField } from './components/TextField';
+import { getPostcodeDetails, getSuggestedPostcodes } from './api/postcodes.ts';
+import { SearchField } from './components/SearchField.tsx';
 import { Title } from './components/Title';
 import { PostcodeDetails } from './components/PostcodeDetails.tsx';
 import { useDebounce } from './hooks/useDebounce';
@@ -11,7 +10,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { MapComponent } from './components/Map.tsx';
 import { queryKeys } from './utils/queryKeys.ts';
 
-// TODO x in input
+// done x in input
 // TODO no suggestions if empty
 // TODO tests
 // TODO error handling
@@ -19,19 +18,20 @@ import { queryKeys } from './utils/queryKeys.ts';
 // TODO no results found
 // TODO eslint
 // TODO zod
-// TODO types
+// done types
+// TODO separate svg X
 
 function App() {
     const [input, setInput] = useState('');
     const debouncedInput = useDebounce(input);
-    const [activePostcode, setActivePostcode] = useState(null);
+    const [activePostcode, setActivePostcode] = useState('');
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const mapRef = useRef<MapRef>(null);
     const [coordinatesAvailable, setCoordinatesAvailable] = useState(true);
 
     const { data } = useQuery({
         queryKey: [queryKeys.postcodes.autocomplete, debouncedInput],
-        queryFn: () => getPostcodes(debouncedInput),
+        queryFn: () => getSuggestedPostcodes(debouncedInput),
         enabled: true,
     });
 
@@ -43,7 +43,7 @@ function App() {
 
     useEffect(() => {
         if (input === '') {
-            setActivePostcode(null);
+            setActivePostcode('');
         }
     }, [input]);
 
@@ -65,12 +65,12 @@ function App() {
         }
     }, [postcodeDetails]);
 
-    const onChangeInputText = e => {
+    const onChangeInputText = (e: ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
         setDropdownVisible(true);
     };
 
-    const handleSuggestionClick = value => {
+    const handleSuggestionClick = (value: string) => {
         setInput(value);
         setActivePostcode(value);
         setDropdownVisible(false);
@@ -80,16 +80,16 @@ function App() {
         <div className="grid grid-cols-1 sm:grid-cols-2 h-full w-[100vw] mx-auto">
             <div className="h-full">
                 <Title />
-                <TextField
+                <SearchField
                     placeholder="Enter postcode..."
                     value={input}
                     onChange={onChangeInputText}
                     suggestions={dropdownVisible ? data?.result : []}
                     onSuggestionClick={handleSuggestionClick}
+                    clear={() => setInput('')}
                 />
                 <PostcodeDetails data={postcodeDetails?.result} />
             </div>
-
             <MapComponent
                 latitude={postcodeDetails?.result?.latitude}
                 longitude={postcodeDetails?.result?.longitude}

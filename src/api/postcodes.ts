@@ -1,16 +1,17 @@
-import axios from 'axios';
+import {api} from "./api.ts";
+import {ApiResponseType} from "../types/ApiResponseType.ts";
+import {PostcodesResponse} from "../types/Postcode.ts";
 
-const URL = 'https://api.postcodes.io/postcodes';
 
-export async function getPostcodes(debouncedInput: string) {
+export async function getSuggestedPostcodes(debouncedInput: string): Promise<{status: number, result: string[] }> {
 
     try {
-        if (debouncedInput.length < 2) {
-            return [];
-        }
-        const url = `${URL}/${debouncedInput}/autocomplete`;
-        const response = await axios(url);
-        return response.data;
+        // if (debouncedInput.length < 1) {
+        //     return [];
+        // }
+        const url = `postcodes/${debouncedInput}/autocomplete`;
+        const response = await api.get<ApiResponseType<{status: number, result: string[] }>>(url);
+        return response.data || [];
     } catch (error) {
         console.error(error);
         throw new Error('Postcodes not found');
@@ -19,8 +20,8 @@ export async function getPostcodes(debouncedInput: string) {
 
 export async function getPostcodeDetails(postCode: string){
     try {
-        const url = `${URL}/${postCode}`;
-        const response = await axios(url);
+        const url = `postcodes/${postCode}`;
+        const response = await api.get<ApiResponseType<PostcodesResponse>>(url);
         return response.data;
     } catch (error) {
         console.error(error);

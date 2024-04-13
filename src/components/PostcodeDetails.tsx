@@ -1,6 +1,10 @@
-import React from 'react';
+// import {PostcodeResult} from "../types/Postcode.ts";
 
-export const PostcodeDetails = ({ data }) => {
+// type PostcodeDetailsProps = {
+//     data: PostcodeResult | undefined
+// }
+
+export const PostcodeDetails = ({ data } ) => {
 
     if (!data) return null;
 

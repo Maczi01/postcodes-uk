@@ -1,15 +1,16 @@
 import React from 'react';
+import {ClearIcon} from "./ClearIcon.tsx";
 
 type InputProps = {
     value?: string;
-    suggestions?: Array<string>;
-    onSuggestionClick?: (value: string) => void;
+    suggestions?: string[];
+    onSuggestionClick: (value: string) => void;
+    clear: () => void;
 } & React.ComponentProps<'input'>;
 
-export const TextField = ({suggestions, onSuggestionClick, ...props}: InputProps) => {
+export const SearchField = ({ suggestions, onSuggestionClick, ...props }: InputProps) => {
     return (
         <div className="my-4 p-2 w-full">
-
             <div className="relative w-full">
                 <input
                     {...props}
@@ -28,6 +29,7 @@ export const TextField = ({suggestions, onSuggestionClick, ...props}: InputProps
                         ))}
                     </ul>
                 )}
+                <ClearIcon onClick={props.clear}/>
             </div>
         </div>
     );
