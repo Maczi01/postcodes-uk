@@ -8,7 +8,7 @@ export async function getSuggestedPostcodes(
     try {
         const url = `postcodes/${debouncedInput}/autocomplete`;
         const response = await api.get<ApiResponseType<{ status: number; result: string[] }>>(url);
-        return response.data || [];
+        return response.data;
     } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error);
