@@ -18,9 +18,8 @@ import { queryKeys } from './utils/queryKeys.ts';
 // TODO loading state
 // TODO no results found
 // done eslint
-// TODO zod
 // done types
-// TODO separate svg X
+// done separate svg X
 
 function App() {
     const [input, setInput] = useState('');
@@ -35,7 +34,11 @@ function App() {
         enabled: true,
     });
 
-    const { data: postcodeDetails } = useQuery({
+    const {
+        data: postcodeData,
+        isLoading: isPostcodeLoading,
+        error: postcodeError,
+    } = useQuery({
         queryKey: [activePostcode],
         queryFn: () => getPostcodeDetails(activePostcode),
         enabled: !!activePostcode,
@@ -48,8 +51,8 @@ function App() {
     }, [input]);
 
     useEffect(() => {
-        if (postcodeDetails && mapRef.current) {
-            const { latitude, longitude } = postcodeDetails.result;
+        if (postcodeData && mapRef.current) {
+            const { latitude, longitude } = postcodeData.result;
             if (latitude != null && longitude != null) {
                 mapRef.current.flyTo({
                     center: [longitude, latitude],
@@ -60,7 +63,7 @@ function App() {
                 });
             }
         }
-    }, [postcodeDetails, debouncedInput]);
+    }, [postcodeData]);
 
     const onChangeInputText = (e: ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
@@ -85,12 +88,16 @@ function App() {
                     onSuggestionClick={handleSuggestionClick}
                     clear={() => setInput('')}
                 />
-                <PostcodeDetails data={postcodeDetails?.result} />
+                <PostcodeDetails
+                    data={postcodeData}
+                    isLoading={isPostcodeLoading}
+                    error={postcodeError}
+                />{' '}
             </div>
             <MapComponent
-                latitude={postcodeDetails?.result?.latitude}
-                longitude={postcodeDetails?.result?.longitude}
-                postcode={postcodeDetails?.result.postcode}
+                latitude={postcodeData?.result?.latitude}
+                longitude={postcodeData?.result?.longitude}
+                postcode={postcodeData?.result.postcode}
             />
         </div>
     );
