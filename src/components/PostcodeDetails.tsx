@@ -1,10 +1,8 @@
-// import {PostcodeResult} from "../types/Postcode.ts";
+type Props = {
+    data: Record<string, any> | undefined;
+};
 
-// type PostcodeDetailsProps = {
-//     data: PostcodeResult | undefined
-// }
-
-export const PostcodeDetails = ({ data }) => {
+export const PostcodeDetails = ({ data }: Props) => {
     if (!data) return null;
 
     const allKeys = Object.keys(data);
@@ -22,7 +20,10 @@ export const PostcodeDetails = ({ data }) => {
 
     return (
         <div className="relative overflow-x-auto">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <table
+                className="w-full text-sm text-left rtl:text-right 
+            text-gray-500 dark:text-gray-400"
+            >
                 <tbody>
                     {keys.map(key => (
                         <tr
@@ -31,13 +32,12 @@ export const PostcodeDetails = ({ data }) => {
                         >
                             <th
                                 scope="row"
-                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                className="px-6 py-4 font-medium text-gray-900 
+                                whitespace-nowrap dark:text-white"
                             >
                                 {key.replace(/_/g, ' ')}
                             </th>
-                            <td className="px-6 py-4">
-                                {data[key] ? data[key].toString() : 'N/A'}
-                            </td>
+                            <td className="px-6 py-4">{data[key] ? data[key] : 'N/A'}</td>
                         </tr>
                     ))}
                 </tbody>

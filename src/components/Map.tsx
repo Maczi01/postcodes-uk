@@ -7,12 +7,11 @@ import { config, mapboxAccessToken } from '../utils/config.ts';
 type MapComponentProps = {
     latitude?: number;
     longitude?: number;
-    coordinatesAvailable: boolean;
+    postcode?: string;
 };
 
-export const MapComponent = ({ latitude, longitude, coordinatesAvailable }: MapComponentProps) => {
+export const MapComponent = ({ latitude, longitude, postcode }: MapComponentProps) => {
     const mapRef = useRef<MapRef>(null);
-
     useEffect(() => {
         if (latitude != null && longitude != null) {
             mapRef?.current?.flyTo({
@@ -37,7 +36,7 @@ export const MapComponent = ({ latitude, longitude, coordinatesAvailable }: MapC
                 touchZoomRotate={false}
                 attributionControl={false}
             >
-                {!coordinatesAvailable && (
+                {(!longitude && postcode) && (
                     <div
                         className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-65 
                     flex items-center justify-center text-xl"

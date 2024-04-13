@@ -28,7 +28,6 @@ function App() {
     const [activePostcode, setActivePostcode] = useState('');
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const mapRef = useRef<MapRef>(null);
-    const [coordinatesAvailable, setCoordinatesAvailable] = useState(true);
 
     const { data } = useQuery({
         queryKey: [queryKeys.postcodes.autocomplete, debouncedInput],
@@ -59,12 +58,9 @@ function App() {
                     curve: 1,
                     essential: true,
                 });
-                setCoordinatesAvailable(true);
-            } else {
-                setCoordinatesAvailable(false);
             }
         }
-    }, [postcodeDetails]);
+    }, [postcodeDetails, debouncedInput]);
 
     const onChangeInputText = (e: ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
@@ -94,7 +90,7 @@ function App() {
             <MapComponent
                 latitude={postcodeDetails?.result?.latitude}
                 longitude={postcodeDetails?.result?.longitude}
-                coordinatesAvailable={coordinatesAvailable}
+                postcode={postcodeDetails?.result.postcode}
             />
         </div>
     );
