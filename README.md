@@ -23,5 +23,4 @@ npm run dev
 - React Query - for data fetching
 - TypeScript - for type safety
 - ESLint & Prettier - for code quality
-- 
-- 
+- Mapbox - for displaying maps
