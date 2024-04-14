@@ -1,6 +1,6 @@
 import { ComponentProps } from 'react';
 
-import { ClearIcon } from './ClearIcon.tsx';
+import { ClearIcon } from './ClearIcon';
 
 type InputProps = {
     value?: string;

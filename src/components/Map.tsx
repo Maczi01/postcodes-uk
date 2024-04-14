@@ -2,7 +2,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { useEffect, useRef } from 'react';
 import Map, { MapRef } from 'react-map-gl';
 
-import { config, mapboxAccessToken } from '../utils/config.ts';
+import { config, mapboxAccessToken } from '../utils/config';
 
 type MapComponentProps = {
     latitude?: number;

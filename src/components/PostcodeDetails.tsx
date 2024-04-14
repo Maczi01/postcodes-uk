@@ -1,4 +1,4 @@
-import { PostcodesResponse } from '../types/Postcode.ts';
+import { PostcodesResponse } from '../types/Postcode';
 
 type DisplayKeys = {
     postcode: string;

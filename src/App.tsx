@@ -3,13 +3,13 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { MapRef } from 'react-map-gl';
 
-import { getPostcodeDetails, getSuggestedPostcodes } from './api/postcodes.ts';
+import { getPostcodeDetails, getSuggestedPostcodes } from './api/postcodes';
 import { MapComponent } from './components/Map';
 import { PostcodeDetails } from './components/PostcodeDetails';
-import { SearchField } from './components/SearchField.tsx';
+import { SearchField } from './components/SearchField';
 import { Title } from './components/Title';
 import { useDebounce } from './hooks/useDebounce';
-import { queryKeys } from './utils/queryKeys.ts';
+import { queryKeys } from './utils/queryKeys';
 
 function App() {
     const [input, setInput] = useState('');
