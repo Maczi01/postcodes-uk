@@ -4,14 +4,6 @@ import Map, { MapRef } from 'react-map-gl';
 
 import { config, mapboxAccessToken } from '../utils/config.ts';
 
-// TODO test
-// TODO mobile
-// TODO refetch
-// TODO docker
-// TODO nvmrc
-// TODO husky
-// TODO dropdown empty
-
 type MapComponentProps = {
     latitude?: number;
     longitude?: number;

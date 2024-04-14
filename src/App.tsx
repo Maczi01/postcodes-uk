@@ -11,16 +11,6 @@ import { Title } from './components/Title';
 import { useDebounce } from './hooks/useDebounce';
 import { queryKeys } from './utils/queryKeys.ts';
 
-// done x in input
-// TODO no suggestions if empty
-// TODO tests
-// TODO error handling
-// TODO loading state
-// TODO no results found
-// done eslint
-// done types
-// done separate svg X
-
 function App() {
     const [input, setInput] = useState('');
     const debouncedInput = useDebounce(input);
@@ -28,7 +18,7 @@ function App() {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const mapRef = useRef<MapRef>(null);
 
-    const { data } = useQuery({
+    const { data: postcodesSuggestions } = useQuery({
         queryKey: [queryKeys.postcodes.autocomplete, debouncedInput],
         queryFn: () => getSuggestedPostcodes(debouncedInput),
         enabled: true,
@@ -84,7 +74,7 @@ function App() {
                     placeholder="Enter postcode..."
                     value={input}
                     onChange={onChangeInputText}
-                    suggestions={dropdownVisible ? data?.result : []}
+                    suggestions={dropdownVisible ? postcodesSuggestions?.result : []}
                     onSuggestionClick={handleSuggestionClick}
                     clear={() => setInput('')}
                 />
